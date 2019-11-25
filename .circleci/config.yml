@@ -32,6 +32,8 @@ jobs:
             echo ${HOME}/gcloud-service-key.json
             cat $GOOGLE_APPLICATION_CREDENTIALS
             echo $GOOGLE_APPLICATION_CREDENTIALS
+            chmod a+x ./gradlew
+            echo $(ls -l)
 
-      - run: ~/repo/gradlew build
-      - run: ~/repo/gradlew test
+      - run: ./gradlew build
+      - run: ~/gradlew test

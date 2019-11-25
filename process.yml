@@ -75,8 +75,10 @@ jobs:
           echo ${HOME}/gcloud-service-key.json
           cat $GOOGLE_APPLICATION_CREDENTIALS
           echo $GOOGLE_APPLICATION_CREDENTIALS
+          chmod a+x ./gradlew
+          echo $(ls -l)
     - run:
-        command: ~/repo/gradlew build test
+        command: ./gradlew build
 workflows:
   version: 2
   workflow:
@@ -118,5 +120,8 @@ workflows:
 #             echo ${HOME}/gcloud-service-key.json
 #             cat $GOOGLE_APPLICATION_CREDENTIALS
 #             echo $GOOGLE_APPLICATION_CREDENTIALS
+#             chmod a+x ./gradlew
+#             echo $(ls -l)
 # 
-#       - run: ~/repo/gradlew build test
+#       - run: ./gradlew build
+# #      - run: ~/gradlew test
