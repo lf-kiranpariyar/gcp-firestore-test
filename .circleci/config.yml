@@ -33,4 +33,5 @@ jobs:
             cat $GOOGLE_APPLICATION_CREDENTIALS
             echo $GOOGLE_APPLICATION_CREDENTIALS
 
-      - run: ~/repo/gradlew build test
+      - run: ~/repo/gradlew build
+      - run: ~/repo/gradlew test
