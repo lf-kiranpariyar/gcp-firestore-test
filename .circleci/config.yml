@@ -1,0 +1,36 @@
+defaults: &defaults
+  docker:
+    - image: google/cloud-sdk:latest
+  working_directory: ~/repo
+
+orbs:
+  gcp-cli: circleci/gcp-cli@1.3.0
+
+version: 2.1
+jobs:
+  build:
+    <<: *defaults
+
+    steps:
+      - checkout
+      - gcp-cli/install
+      - gcp-cli/initialize:
+          gcloud-service-key: GCLOUD_SERVICE_KEY_DEV
+          google-project-id: GOOGLE_PROJECT_ID_DEV
+          google-compute-zone: GOOGLE_COMPUTE_ZONE_DEV
+
+
+      - run:
+          name: Update PATH and Define Environment Variable at Runtime
+          command: |
+            echo ${GCLOUD_SERVICE_KEY}
+            echo ${GOOGLE_PROJECT_ID}
+            echo ${GOOGLE_COMPUTE_ZONE}
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json' >> $BASH_ENV
+            source $BASH_ENV
+            echo $BASH_ENV
+            echo ${HOME}/gcloud-service-key.json
+            cat $GOOGLE_APPLICATION_CREDENTIALS
+            echo $GOOGLE_APPLICATION_CREDENTIALS
+
+      - run: ~/repo/gradlew build test
