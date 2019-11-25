@@ -36,4 +36,4 @@ jobs:
             echo $(ls -l)
 
       - run: ./gradlew build
-      - run: ~/gradlew test
+      - run: ./gradlew test
